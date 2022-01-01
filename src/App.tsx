@@ -31,12 +31,16 @@ function App() {
   return (
     <>
       <input type="text" onChange={handleSearch} />
-      {books.map((book) => {
-        return (
-          <div ref={lastBookElementRef} key={book}>
-            {book}
-          </div>
-        );
+      {books.map((book, index) => {
+        if (books.length === index + 1) {
+          return (
+            <div ref={lastBookElementRef} key={book}>
+              {book}
+            </div>
+          );
+        } else {
+          return <div key={book}>{book}</div>;
+        }
       })}
       <div>{loading && "Loading..."}</div>
 
