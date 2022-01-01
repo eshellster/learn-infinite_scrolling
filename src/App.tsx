@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { UseBookSerach } from "./useBookSerach";
 
 function App() {
+  const [query, setQuery] = useState("");
+  const [pageNumber, setPageNumber] = useState(1);
+
+  function handleSearch(e: any) {
+    setQuery(e.target.value);
+    setPageNumber(1);
+  }
+  const { loading, error, books, hasMore } = UseBookSerach(query, pageNumber);
+  // console.log("books", books);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <input type="text" onChange={handleSearch} />
+      {books.map((book) => {
+        return <div key={book}>{book}</div>;
+      })}
+      <div>{loading && "Loading..."}</div>
+
+      <div>{error && "Error"}</div>
+    </>
   );
 }
 
