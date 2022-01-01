@@ -6,6 +6,11 @@ export function UseBookSerach(query: string, pageNumber: number) {
   const [error, setError] = useState(false);
   const [books, setBooks] = useState<any[]>([]);
   const [hasMore, setHasMore] = useState(false);
+
+  useEffect(() => {
+    setBooks([]);
+  }, [query]);
+
   useEffect(() => {
     setLoading(true);
     setError(false);
